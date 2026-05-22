@@ -72,13 +72,16 @@ function handleDropdownKeyboard(e, li, navSections) {
 function decorateDropdown(li) {
   li.classList.add('nav-drop');
   li.setAttribute('aria-expanded', 'false');
-  const trigger = li.querySelector(':scope > a');
+  const trigger = li.querySelector(':scope > a') || li.querySelector(':scope > p > a');
   if (trigger) {
+    trigger.classList.remove('button');
     trigger.classList.add('nav-drop-trigger');
     trigger.append(buildChevronSVG());
     trigger.setAttribute('aria-expanded', 'false');
     trigger.setAttribute('role', 'button');
     trigger.setAttribute('tabindex', '0');
+    const container = trigger.closest('.button-container');
+    if (container) container.classList.remove('button-container');
   }
   const subList = li.querySelector(':scope > ul');
   if (subList) {

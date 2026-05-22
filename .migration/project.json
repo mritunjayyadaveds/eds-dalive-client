@@ -1,6 +1,6 @@
 {
-  "type": "xwalk",
-  "contentHostUrl": "https://content.da.live",
+  "type": "da",
+  "contentHostUrl": "https://content.da.live/mritunjayyadaveds/eds-dalive-client/",
   "aemSitePath": "/content/eds-demo",
   "aemAssetsFolderPath": "/content/dam/eds-demo",
   "aemSiteName": "eds-demo",

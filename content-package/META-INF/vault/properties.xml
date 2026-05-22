@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="name">eds-demo-sei-content</entry>
+  <entry key="version">1.0.0</entry>
+  <entry key="group">eds-demo</entry>
+  <entry key="description">SEI Demo Site Content - Homepage, Navigation, Footer</entry>
+  <entry key="createdBy">AEM Author</entry>
+  <entry key="packageType">content</entry>
+</properties>

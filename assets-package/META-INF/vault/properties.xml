@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+  <entry key="name">eds-demo-sei-assets</entry>
+  <entry key="version">2.0.0</entry>
+  <entry key="group">eds-demo</entry>
+  <entry key="description">SEI Demo Site DAM Assets v2 - Fixed structure with proper dam:AssetContent nodes</entry>
+  <entry key="createdBy">AEM Author</entry>
+  <entry key="packageType">content</entry>
+  <entry key="requiresRoot">false</entry>
+  <entry key="acHandling">overwrite</entry>
+</properties>

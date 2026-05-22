@@ -1,0 +1,85 @@
+{
+  "definitions": [
+    {
+      "title": "Spotlight",
+      "id": "spotlight",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Spotlight",
+              "filter": "spotlight"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Spotlight Item",
+      "id": "spotlight-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Spotlight Item",
+              "model": "spotlight-item",
+              "image": "",
+              "imageAlt": "",
+              "videoUrl": "",
+              "text": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "spotlight-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Thumbnail Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Image Alt Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "videoUrl",
+          "label": "YouTube Video URL",
+          "description": "Paste a YouTube link (e.g. https://www.youtube.com/watch?v=...)",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "name": "text",
+          "value": "",
+          "label": "Label Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "spotlight",
+      "components": [
+        "spotlight-item"
+      ]
+    }
+  ]
+}

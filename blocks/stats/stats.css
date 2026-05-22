@@ -1,0 +1,45 @@
+.stats-container .stats-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.stats-item {
+  text-align: left;
+}
+
+.stats-value {
+  font-size: 48px;
+  font-weight: 900;
+  color: #101828;
+  line-height: 1.1;
+  margin-bottom: 12px;
+}
+
+.stats-label {
+  font-size: 15px;
+  color: #6a7282;
+  line-height: 1.5;
+}
+
+@media (width >= 900px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .stats-value {
+    font-size: 64px;
+  }
+
+  .stats-label {
+    font-size: 16px;
+  }
+}

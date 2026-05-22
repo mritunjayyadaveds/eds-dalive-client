@@ -1,0 +1,11 @@
+{
+  "type": "xwalk",
+  "contentHostUrl": "author-p9198-e1212741.adobeaemcloud.com",
+  "aemSitePath": "/content/eds-demo",
+  "aemAssetsFolderPath": "/content/dam/eds-demo",
+  "aemSiteName": "eds-demo",
+  "aemSiteTitle": "EDS Demo",
+  "baseUrl": "https://main--eds-demo-for-client--mritunjayyadaveds.aem.live",
+  "previewOrg": "mritunjayyadaveds",
+  "previewSite": "eds-demo-for-client"
+}

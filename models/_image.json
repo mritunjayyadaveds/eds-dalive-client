@@ -1,0 +1,43 @@
+{
+  "definitions": [
+    {
+      "title": "Image",
+      "id": "image",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/image/v1/image",
+            "template": {
+              "image": "",
+              "imageAlt": ""
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "image",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "imageAlt",
+          "label": "Alt Text",
+          "value": ""
+        }
+      ]
+    }
+  ]
+}

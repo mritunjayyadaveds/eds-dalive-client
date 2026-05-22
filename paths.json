@@ -1,0 +1,8 @@
+{
+  "mappings": [
+    "/content/eds-demo/:/"
+  ],
+  "includes": [
+    "/content/eds-demo/"
+  ]
+}

@@ -1,0 +1,126 @@
+.accordion-container .accordion-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.accordion-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-top: 32px;
+}
+
+.accordion-pillar {
+  background: #f9fafb;
+  overflow: hidden;
+  height: 180px;
+  padding: 24px 20px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 1px solid #e8eaed;
+  transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-pillar:last-child {
+  border-right: none;
+}
+
+.accordion-pillar:hover {
+  height: auto;
+  min-height: 180px;
+}
+
+/* Gold background that scales up from bottom on hover */
+.accordion-pillar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: rgb(255 162 2);
+  transform: scaleY(0);
+  transform-origin: center bottom;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-pillar:hover::before {
+  transform: scaleY(1);
+}
+
+/* Title fades out and slides up on hover */
+.accordion-pillar-head {
+  font-size: 18px;
+  font-weight: 600;
+  color: #101828;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+  transition: opacity 0.3s, transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-pillar:hover .accordion-pillar-head {
+  opacity: 0;
+  transform: translateY(-14px);
+}
+
+/* Reveal slides up from bottom covering the whole pillar */
+.accordion-pillar-reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  transform: translateY(100%);
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.accordion-pillar:hover .accordion-pillar-reveal {
+  transform: translateY(0);
+}
+
+.accordion-pillar-body {
+  font-size: 14px;
+  color: #101828;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (width >= 900px) {
+  .accordion-pillar-head {
+    font-size: 20px;
+  }
+
+  .accordion-pillar-body {
+    font-size: 15px;
+  }
+}
+
+@media (width < 900px) {
+  .accordion-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .accordion-pillar {
+    height: 150px;
+  }
+}
+
+@media (width < 600px) {
+  .accordion-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .accordion-pillar {
+    height: 140px;
+    padding: 20px 16px;
+  }
+
+  .accordion-pillar-body {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "id": "main",
+    "components": [
+      "section"
+    ]
+  },
+  {
+    "id": "section",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "hero",
+      "cards",
+      "columns",
+      "fragment",
+      "youtube",
+      "countries",
+      "spotlight",
+      "subscribe",
+      "tabs",
+      "accordion",
+      "stats"
+    ]
+  },
+  {
+    "id": "stats",
+    "components": [
+      "stats-item"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
+    ]
+  },
+  {
+    "id": "cards",
+    "components": [
+      "card"
+    ]
+  },
+  {
+    "id": "columns",
+    "components": [
+      "column"
+    ]
+  },
+  {
+    "id": "column",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title",
+      "youtube",
+      "countries"
+    ]
+  },
+  {
+    "id": "countries",
+    "components": [
+      "countries-item"
+    ]
+  },
+  {
+    "id": "spotlight",
+    "components": [
+      "spotlight-item"
+    ]
+  },
+  {
+    "id": "subscribe",
+    "components": [
+      "subscribe-item"
+    ]
+  },
+  {
+    "id": "tabs",
+    "components": [
+      "tab-item"
+    ]
+  }
+]

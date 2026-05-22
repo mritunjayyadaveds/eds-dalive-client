@@ -97,6 +97,25 @@ header .nav-brand img {
 }
 
 /* ===== Sections (Nav Links) ===== */
+header .nav-sections a.button {
+  all: unset;
+  cursor: pointer;
+  color: #364153;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+header .nav-sections a.button:hover {
+  color: #111827;
+  background-color: unset;
+  text-decoration: none;
+}
+
+header .nav-sections .button-container {
+  all: unset;
+}
+
 header .nav-sections {
   flex: 1 1 auto;
   display: none;
@@ -212,10 +231,12 @@ header .nav-drop[aria-expanded='true'] .nav-dropdown li a:hover {
 }
 
 /* ===== Tools (Login + Contact CTA) ===== */
+/* stylelint-disable no-descending-specificity */
 header .nav-tools a.button {
   all: unset;
   cursor: pointer;
 }
+/* stylelint-enable no-descending-specificity */
 
 header .nav-tools .button-container {
   all: unset;

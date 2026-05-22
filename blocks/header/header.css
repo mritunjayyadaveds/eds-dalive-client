@@ -69,6 +69,15 @@ header nav a:hover {
 }
 
 /* ===== Brand / Logo ===== */
+header .nav-brand a.button {
+  all: unset;
+  cursor: pointer;
+}
+
+header .nav-brand .button-container {
+  all: unset;
+}
+
 header .nav-brand {
   flex-shrink: 0;
   display: flex;
@@ -203,6 +212,15 @@ header .nav-drop[aria-expanded='true'] .nav-dropdown li a:hover {
 }
 
 /* ===== Tools (Login + Contact CTA) ===== */
+header .nav-tools a.button {
+  all: unset;
+  cursor: pointer;
+}
+
+header .nav-tools .button-container {
+  all: unset;
+}
+
 header .nav-tools {
   display: none;
   align-items: center;

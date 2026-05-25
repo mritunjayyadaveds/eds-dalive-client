@@ -1,12 +1,4 @@
 {
   "project": "EDS DA Live Client",
-  "plugins": [
-    {
-      "id": "library",
-      "title": "Library",
-      "environments": ["edit"],
-      "url": "/tools/sidekick/library.html",
-      "includePaths": ["**"]
-    }
-  ]
+  "libs": "/tools/sidekick/library"
 }

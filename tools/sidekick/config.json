@@ -1,4 +1,5 @@
 {
   "project": "EDS DA Live Client",
+  "contentSourceUrl": "https://content.da.live/mritunjayyadaveds/eds-dalive-client",
   "libs": "/tools/sidekick/library"
 }

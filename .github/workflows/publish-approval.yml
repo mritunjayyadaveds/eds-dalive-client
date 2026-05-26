@@ -1,0 +1,35 @@
+name: Publish Approval Request
+
+on:
+  repository_dispatch:
+    types: [preview]
+
+jobs:
+  notify-approver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send email notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 587
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "Content Ready for Approval - ${{ github.event.client_payload.path }}"
+          to: ${{ secrets.APPROVER_EMAIL }}
+          from: ${{ secrets.EMAIL_USERNAME }}
+          body: |
+            A content update is ready for your review and approval.
+
+            Page: ${{ github.event.client_payload.path }}
+            Author: ${{ github.event.client_payload.initiatedBy }}
+            Time: ${{ github.event.client_payload.timestamp }}
+
+            Preview Link:
+            https://main--eds-dalive-client--mritunjayyadaveds.aem.page${{ github.event.client_payload.path }}
+
+            To publish this content to live, go to:
+            https://admin.hlx.page/live/mritunjayyadaveds/eds-dalive-client/main${{ github.event.client_payload.path }}
+
+            ---
+            This is an automated message from the EDS publish workflow.

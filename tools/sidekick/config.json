@@ -2,12 +2,13 @@
   "project": "EDS DA Live Client",
   "contentSourceUrl": "https://content.da.live/mritunjayyadaveds/eds-dalive-client",
   "libs": "/tools/sidekick/library",
+  "host": "main--eds-dalive-client--mritunjayyadaveds.aem.live",
   "plugins": [
     {
       "id": "asset-library",
       "title": "AEM Assets",
       "environments": ["edit"],
-      "url": "https://experience.adobe.com/solutions/CQ-helix-assets-addon/static-assets/resources/asset-selector.html",
+      "url": "https://experience.adobe.com/solutions/CQ-helix-assets-addon/static-assets/resources/asset-selector.html?rail=false",
       "isPalette": true,
       "includePaths": ["**"],
       "passConfig": true,

@@ -7,5 +7,6 @@
   "aemSiteTitle": "EDS Demo",
   "baseUrl": "https://main--eds-dalive-client--mritunjayyadaveds.aem.live",
   "previewOrg": "mritunjayyadaveds",
-  "previewSite": "eds-dalive-client"
+  "previewSite": "eds-dalive-client",
+  "libraryUrl": "https://github.com/mritunjayyadaveds/eds-dalive-client"
 }

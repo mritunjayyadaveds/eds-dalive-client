@@ -4,20 +4,80 @@ const QUEUE_PATH = 'publish-queue';
 const DA_ADMIN = 'https://admin.da.live';
 const DA_CONTENT = `https://content.da.live/${OWNER}/${REPO}`;
 
-function getImsToken() {
-  const adobeIMS = window.adobeIMS || window.adobeid;
-  if (adobeIMS && adobeIMS.getAccessToken) {
-    return adobeIMS.getAccessToken().token;
+let authToken = null;
+
+async function login() {
+  if (authToken) return authToken;
+
+  const stored = localStorage.getItem('da-publish-token');
+  if (stored) {
+    authToken = stored;
+    const test = await fetch(`${DA_ADMIN}/list/${OWNER}/${REPO}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
+    if (test.ok) return authToken;
+    localStorage.removeItem('da-publish-token');
+    authToken = null;
+  }
+
+  return null;
+}
+
+async function startLogin() {
+  const loginWindow = window.open(
+    'https://da.live',
+    'da-login',
+    'width=600,height=700',
+  );
+
+  return new Promise((resolve) => {
+    const interval = setInterval(async () => {
+      try {
+        if (loginWindow.closed) {
+          clearInterval(interval);
+          const token = localStorage.getItem('da-publish-token');
+          authToken = token;
+          resolve(token);
+        }
+      } catch (e) {
+        // cross-origin, ignore
+      }
+    }, 1000);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      resolve(null);
+    }, 120000);
+  });
+}
+
+function getTokenFromUrl() {
+  const hash = window.location.hash;
+  if (hash && hash.includes('token=')) {
+    const params = new URLSearchParams(hash.substring(1));
+    const token = params.get('token');
+    if (token) {
+      localStorage.setItem('da-publish-token', token);
+      authToken = token;
+      window.location.hash = '';
+      return token;
+    }
   }
   return null;
 }
 
-async function daLogin() {
-  const loginUrl = `${DA_ADMIN}/login`;
-  const resp = await fetch(loginUrl, { credentials: 'include' });
-  if (resp.ok) return true;
-  window.open('https://da.live', '_blank');
-  return false;
+async function initAuth() {
+  getTokenFromUrl();
+  if (authToken) return authToken;
+  return login();
+}
+
+async function daFetchAuth(url, options = {}) {
+  const headers = { ...options.headers || {} };
+  if (authToken) {
+    headers.Authorization = `Bearer ${authToken}`;
+  }
+  return fetch(url, { ...options, headers, credentials: 'include' });
 }
 
 export async function fetchQueue() {
@@ -30,24 +90,16 @@ export async function fetchQueue() {
 async function saveQueue(data) {
   const body = JSON.stringify({ data });
 
-  const resp = await fetch(
+  const resp = await daFetchAuth(
     `${DA_ADMIN}/source/${OWNER}/${REPO}/${QUEUE_PATH}.json`,
     {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
       body,
     },
   );
 
-  if (resp.ok) return true;
-
-  if (resp.status === 401) {
-    // eslint-disable-next-line no-alert
-    alert('Please log into da.live first, then try again.');
-    window.open('https://da.live', '_blank');
-  }
-  return false;
+  return resp.ok;
 }
 
 export async function addToQueue(entry) {
@@ -56,13 +108,48 @@ export async function addToQueue(entry) {
   return saveQueue(queue);
 }
 
+function renderLoginButton(container, onLogin) {
+  container.innerHTML = `
+    <style>
+      .login-box { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 400px; margin: 60px auto; text-align: center; padding: 40px; border: 1px solid #e5e7eb; border-radius: 12px; }
+      .login-box h2 { margin: 0 0 12px; font-size: 20px; }
+      .login-box p { color: #6b7280; font-size: 14px; margin: 0 0 24px; }
+      .login-box .btn { padding: 12px 24px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+      .login-box .btn:hover { background: #1d4ed8; }
+      .login-box input { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; box-sizing: border-box; margin-bottom: 12px; }
+      .login-box label { display: block; text-align: left; font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+      .login-box .help { font-size: 12px; color: #9ca3af; margin-top: 16px; }
+    </style>
+    <div class="login-box">
+      <h2>DA Live Authentication</h2>
+      <p>Enter your DA Live auth token to continue.</p>
+      <label for="token-input">Auth Token:</label>
+      <input type="password" id="token-input" placeholder="Paste your DA Live token here...">
+      <button class="btn" id="login-btn">Connect</button>
+      <p class="help">
+        To get your token: Open <a href="https://da.live" target="_blank">da.live</a> →
+        Open DevTools (F12) → Application → Cookies → Copy the value of the "auth_token" cookie.
+      </p>
+    </div>
+  `;
+
+  container.querySelector('#login-btn').addEventListener('click', () => {
+    const token = container.querySelector('#token-input').value.trim();
+    if (token) {
+      localStorage.setItem('da-publish-token', token);
+      authToken = token;
+      onLogin();
+    }
+  });
+}
+
 function renderDashboard(container, queue) {
   const pending = queue.filter((r) => r.status === 'pending');
   const history = queue.filter((r) => r.status !== 'pending');
 
   container.innerHTML = `
     <style>
-      .ad { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; }
+      .ad { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; }
       .ad h1 { font-size: 24px; margin: 0 0 8px; }
       .ad .subtitle { color: #6b7280; margin: 0 0 24px; font-size: 14px; }
       .ad h2 { font-size: 18px; margin: 24px 0 12px; }
@@ -78,15 +165,18 @@ function renderDashboard(container, queue) {
       .ad .badge-approved { background: #d1fae5; color: #065f46; }
       .ad .badge-rejected { background: #fee2e2; color: #991b1b; }
       .ad .empty { color: #6b7280; font-style: italic; padding: 20px 0; }
+      .ad .toolbar { display: flex; gap: 8px; margin-bottom: 16px; }
       .ad .refresh { padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
       .ad .refresh:hover { background: #1d4ed8; }
-      .ad .note { background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; color: #1e40af; }
+      .ad .logout { padding: 8px 16px; background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; border-radius: 6px; cursor: pointer; font-size: 13px; }
     </style>
     <div class="ad">
       <h1>Publish Approval Dashboard</h1>
       <p class="subtitle">Review and approve content publish requests</p>
-      <p class="note">This dashboard reads from the publish-queue sheet. Approve/Reject requires DA Live login (same browser session).</p>
-      <button class="refresh" id="refresh-queue">Refresh Queue</button>
+      <div class="toolbar">
+        <button class="refresh" id="refresh-queue">Refresh Queue</button>
+        <button class="logout" id="logout-btn">Logout</button>
+      </div>
 
       <h2>Pending Requests (${pending.length})</h2>
       ${pending.length === 0 ? '<p class="empty">No pending requests.</p>' : `
@@ -125,9 +215,15 @@ function renderDashboard(container, queue) {
   `;
 
   container.querySelector('#refresh-queue').addEventListener('click', async () => {
-    container.innerHTML = '<p style="padding:20px;color:#6b7280;">Loading...</p>';
+    container.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280;">Loading...</p>';
     const freshQueue = await fetchQueue();
     renderDashboard(container, freshQueue);
+  });
+
+  container.querySelector('#logout-btn').addEventListener('click', () => {
+    localStorage.removeItem('da-publish-token');
+    authToken = null;
+    window.location.reload();
   });
 
   container.querySelectorAll('.btn-approve').forEach((btn) => {
@@ -140,10 +236,13 @@ function renderDashboard(container, queue) {
       queue[fullIdx].reviewedBy = 'admin';
       queue[fullIdx].reviewedAt = new Date().toISOString();
       const ok = await saveQueue(queue);
-      if (ok) renderDashboard(container, queue);
-      else {
+      if (ok) {
+        renderDashboard(container, queue);
+      } else {
         e.target.disabled = false;
         e.target.textContent = 'Approve';
+        // eslint-disable-next-line no-alert
+        alert('Failed. Token may be expired — try logging out and re-entering.');
       }
     });
   });
@@ -158,16 +257,25 @@ function renderDashboard(container, queue) {
       queue[fullIdx].reviewedBy = 'admin';
       queue[fullIdx].reviewedAt = new Date().toISOString();
       const ok = await saveQueue(queue);
-      if (ok) renderDashboard(container, queue);
-      else {
+      if (ok) {
+        renderDashboard(container, queue);
+      } else {
         e.target.disabled = false;
         e.target.textContent = 'Reject';
+        // eslint-disable-next-line no-alert
+        alert('Failed. Token may be expired — try logging out and re-entering.');
       }
     });
   });
 }
 
 export async function renderRequestForm(container, pagePath, userEmail) {
+  const token = await initAuth();
+  if (!token) {
+    renderLoginButton(container, () => renderRequestForm(container, pagePath, userEmail));
+    return;
+  }
+
   container.innerHTML = `
     <style>
       .rf { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 500px; padding: 24px; }
@@ -179,11 +287,11 @@ export async function renderRequestForm(container, pagePath, userEmail) {
       .rf .btn:disabled { background: #9ca3af; cursor: not-allowed; }
       .rf .success { color: #059669; font-weight: 600; margin-top: 12px; }
       .rf .error { color: #dc2626; font-weight: 600; margin-top: 12px; }
-      .rf .note { background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px 14px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; color: #1e40af; }
+      .rf .connected { background: #d1fae5; color: #065f46; padding: 8px 12px; border-radius: 6px; margin-bottom: 16px; font-size: 13px; }
     </style>
     <div class="rf">
       <h3>Request Publish: ${pagePath}</h3>
-      <p class="note">You must be logged into <a href="https://da.live" target="_blank">DA Live</a> in this browser for submission to work.</p>
+      <div class="connected">Connected to DA Live</div>
       <label for="publish-reason">Reason for publishing:</label>
       <textarea id="publish-reason" placeholder="Describe your changes (min 10 characters)..."></textarea>
       <button class="btn" id="submit-request">Submit Request</button>
@@ -222,7 +330,7 @@ export async function renderRequestForm(container, pagePath, userEmail) {
       btn.textContent = 'Submitted';
     } else {
       statusEl.className = 'error';
-      statusEl.textContent = 'Failed to submit. Make sure you are logged into da.live in this browser.';
+      statusEl.textContent = 'Failed. Token may be expired — reload the page and try again.';
       btn.disabled = false;
       btn.textContent = 'Submit Request';
     }
@@ -230,6 +338,11 @@ export async function renderRequestForm(container, pagePath, userEmail) {
 }
 
 export async function initDashboard(container) {
+  const token = await initAuth();
+  if (!token) {
+    renderLoginButton(container, () => initDashboard(container));
+    return;
+  }
   const queue = await fetchQueue();
   renderDashboard(container, queue);
 }

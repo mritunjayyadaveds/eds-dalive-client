@@ -1,0 +1,17 @@
+name: Preview
+
+on:
+  repository_dispatch:
+    types:
+      - resource-previewed
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Preview Triggered
+        run: echo "EDS Preview workflow registered"

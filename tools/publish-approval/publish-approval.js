@@ -1,56 +1,53 @@
-const DA_ORIGIN = 'https://admin.da.live';
 const OWNER = 'mritunjayyadaveds';
 const REPO = 'eds-dalive-client';
 const QUEUE_PATH = '/publish-queue';
-
-async function getToken() {
-  const { token } = await import('https://da.live/scripts/dapreview.js').catch(() => ({}));
-  if (token) return token;
-  const stored = localStorage.getItem('da-token');
-  return stored || null;
-}
+const AEM_ORIGIN = `https://main--${REPO}--${OWNER}.aem.live`;
 
 async function fetchQueue() {
-  const resp = await fetch(
-    `https://content.da.live/${OWNER}/${REPO}${QUEUE_PATH}.json`,
-  );
+  const resp = await fetch(`${AEM_ORIGIN}${QUEUE_PATH}.json`);
   if (!resp.ok) return [];
   const json = await resp.json();
   return json.data || [];
 }
 
 async function updateQueue(data) {
-  const token = await getToken();
-  const headers = { 'Content-Type': 'application/json' };
-  if (token) headers.Authorization = `Bearer ${token}`;
-
-  const body = JSON.stringify({
-    data: data.map((row) => ({
-      page: row.page,
-      requestedBy: row.requestedBy,
-      requestedAt: row.requestedAt,
-      reason: row.reason,
-      status: row.status,
-      reviewedBy: row.reviewedBy || '',
-      reviewedAt: row.reviewedAt || '',
-    })),
-  });
-
   const resp = await fetch(
-    `${DA_ORIGIN}/source/${OWNER}/${REPO}${QUEUE_PATH}.json`,
-    { method: 'PUT', headers, body },
+    `https://admin.hlx.page/form/${OWNER}/${REPO}/main${QUEUE_PATH}`,
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data }),
+    },
   );
-  return resp.ok;
+  if (!resp.ok) {
+    const formData = new FormData();
+    data.forEach((row, i) => {
+      Object.entries(row).forEach(([key, value]) => {
+        formData.append(`data[${i}][${key}]`, value || '');
+      });
+    });
+    const retry = await fetch(
+      `https://admin.hlx.page/form/${OWNER}/${REPO}/main${QUEUE_PATH}`,
+      { method: 'POST', body: formData },
+    );
+    return retry.ok;
+  }
+  return true;
 }
 
-async function publishPage(path) {
-  const token = await getToken();
-  const headers = {};
-  if (token) headers.Authorization = `Bearer ${token}`;
+async function addToQueue(entry) {
+  const formData = new FormData();
+  formData.append('page', entry.page);
+  formData.append('requestedBy', entry.requestedBy);
+  formData.append('requestedAt', entry.requestedAt);
+  formData.append('reason', entry.reason);
+  formData.append('status', entry.status);
+  formData.append('reviewedBy', entry.reviewedBy || '');
+  formData.append('reviewedAt', entry.reviewedAt || '');
 
   const resp = await fetch(
-    `${DA_ORIGIN}/source/${OWNER}/${REPO}${path}`,
-    { method: 'POST', headers },
+    `https://admin.hlx.page/form/${OWNER}/${REPO}/main${QUEUE_PATH}`,
+    { method: 'POST', body: formData },
   );
   return resp.ok;
 }
@@ -61,8 +58,9 @@ function renderDashboard(container, queue) {
 
   container.innerHTML = `
     <style>
-      .approval-dashboard { font-family: var(--body-font-family, sans-serif); max-width: 900px; margin: 0 auto; padding: 24px; }
-      .approval-dashboard h2 { font-size: 20px; margin: 24px 0 12px; }
+      .approval-dashboard { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; }
+      .approval-dashboard h1 { font-size: 24px; margin: 0 0 24px; }
+      .approval-dashboard h2 { font-size: 18px; margin: 24px 0 12px; }
       .approval-table { width: 100%; border-collapse: collapse; font-size: 14px; }
       .approval-table th, .approval-table td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
       .approval-table th { font-weight: 600; background: #f9fafb; }
@@ -71,14 +69,17 @@ function renderDashboard(container, queue) {
       .approval-btn.approve:hover { background: #047857; }
       .approval-btn.reject { background: #dc2626; color: #fff; margin-left: 6px; }
       .approval-btn.reject:hover { background: #b91c1c; }
-      .status-badge { padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+      .status-badge { padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block; }
       .status-badge.approved { background: #d1fae5; color: #065f46; }
       .status-badge.rejected { background: #fee2e2; color: #991b1b; }
       .status-badge.pending { background: #fef3c7; color: #92400e; }
       .empty-state { color: #6b7280; font-style: italic; padding: 20px 0; }
+      .refresh-btn { padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; margin-bottom: 16px; }
+      .refresh-btn:hover { background: #1d4ed8; }
     </style>
     <div class="approval-dashboard">
       <h1>Publish Approval Dashboard</h1>
+      <button class="refresh-btn" id="refresh-queue">Refresh</button>
 
       <h2>Pending Requests (${pending.length})</h2>
       ${pending.length === 0 ? '<p class="empty-state">No pending requests.</p>' : `
@@ -89,7 +90,7 @@ function renderDashboard(container, queue) {
           <tr>
             <td><a href="https://da.live/edit#/${OWNER}/${REPO}${r.page}" target="_blank">${r.page}</a></td>
             <td>${r.requestedBy}</td>
-            <td>${new Date(r.requestedAt).toLocaleDateString()}</td>
+            <td>${r.requestedAt ? new Date(r.requestedAt).toLocaleDateString() : ''}</td>
             <td>${r.reason}</td>
             <td>
               <button class="approval-btn approve" data-index="${i}" data-action="approve">Approve</button>
@@ -102,20 +103,24 @@ function renderDashboard(container, queue) {
       <h2>History</h2>
       ${history.length === 0 ? '<p class="empty-state">No history yet.</p>' : `
       <table class="approval-table">
-        <thead><tr><th>Page</th><th>Requested By</th><th>Status</th><th>Reviewed By</th><th>Reviewed At</th></tr></thead>
+        <thead><tr><th>Page</th><th>Requested By</th><th>Status</th><th>Reviewed At</th></tr></thead>
         <tbody>
           ${history.slice(0, 20).map((r) => `
           <tr>
             <td>${r.page}</td>
             <td>${r.requestedBy}</td>
             <td><span class="status-badge ${r.status}">${r.status}</span></td>
-            <td>${r.reviewedBy}</td>
             <td>${r.reviewedAt ? new Date(r.reviewedAt).toLocaleDateString() : ''}</td>
           </tr>`).join('')}
         </tbody>
       </table>`}
     </div>
   `;
+
+  container.querySelector('#refresh-queue').addEventListener('click', async () => {
+    const freshQueue = await fetchQueue();
+    renderDashboard(container, freshQueue);
+  });
 
   container.querySelectorAll('.approval-btn').forEach((btn) => {
     btn.addEventListener('click', async (e) => {
@@ -127,14 +132,6 @@ function renderDashboard(container, queue) {
       item.reviewedBy = 'admin';
       item.reviewedAt = new Date().toISOString();
 
-      if (action === 'approve') {
-        const published = await publishPage(item.page);
-        if (!published) {
-          // eslint-disable-next-line no-alert
-          alert(`Failed to publish ${item.page}. Marked as approved but publish may need manual action.`);
-        }
-      }
-
       await updateQueue(queue);
       renderDashboard(container, queue);
     });
@@ -144,12 +141,13 @@ function renderDashboard(container, queue) {
 export async function renderRequestForm(container, pagePath, userEmail) {
   container.innerHTML = `
     <style>
-      .request-form { font-family: var(--body-font-family, sans-serif); max-width: 500px; padding: 24px; }
-      .request-form h3 { margin: 0 0 16px; }
+      .request-form { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 500px; padding: 24px; }
+      .request-form h3 { margin: 0 0 16px; font-size: 20px; }
       .request-form label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-      .request-form textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 80px; resize: vertical; }
+      .request-form textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 80px; resize: vertical; box-sizing: border-box; }
       .request-form .submit-btn { margin-top: 12px; padding: 10px 20px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
       .request-form .submit-btn:hover { background: #1d4ed8; }
+      .request-form .submit-btn:disabled { background: #9ca3af; cursor: not-allowed; }
       .request-form .success { color: #059669; font-weight: 600; margin-top: 12px; }
       .request-form .error { color: #dc2626; font-weight: 600; margin-top: 12px; }
     </style>
@@ -165,6 +163,7 @@ export async function renderRequestForm(container, pagePath, userEmail) {
   container.querySelector('#submit-request').addEventListener('click', async () => {
     const reason = container.querySelector('#publish-reason').value.trim();
     const statusEl = container.querySelector('#request-status');
+    const btn = container.querySelector('#submit-request');
 
     if (reason.length < 10) {
       statusEl.className = 'error';
@@ -172,8 +171,10 @@ export async function renderRequestForm(container, pagePath, userEmail) {
       return;
     }
 
-    const queue = await fetchQueue();
-    queue.push({
+    btn.disabled = true;
+    btn.textContent = 'Submitting...';
+
+    const entry = {
       page: pagePath,
       requestedBy: userEmail || 'unknown',
       requestedAt: new Date().toISOString(),
@@ -181,15 +182,18 @@ export async function renderRequestForm(container, pagePath, userEmail) {
       status: 'pending',
       reviewedBy: '',
       reviewedAt: '',
-    });
+    };
 
-    const success = await updateQueue(queue);
+    const success = await addToQueue(entry);
     if (success) {
       statusEl.className = 'success';
       statusEl.textContent = 'Publish request submitted! An admin will review it.';
+      btn.textContent = 'Submitted';
     } else {
       statusEl.className = 'error';
       statusEl.textContent = 'Failed to submit request. Please try again.';
+      btn.disabled = false;
+      btn.textContent = 'Submit Request';
     }
   });
 }

@@ -1,91 +1,104 @@
 const OWNER = 'mritunjayyadaveds';
 const REPO = 'eds-dalive-client';
-const QUEUE_PATH = 'publish-queue';
-const DA_ADMIN = 'https://admin.da.live';
-const DA_CONTENT = `https://content.da.live/${OWNER}/${REPO}`;
+const QUEUE_SHEET_URL = `https://da.live/sheet#/${OWNER}/${REPO}/publish-queue`;
+const QUEUE_JSON_URL = `https://content.da.live/${OWNER}/${REPO}/publish-queue.json`;
 
 export async function fetchQueue() {
-  const resp = await fetch(`${DA_CONTENT}/${QUEUE_PATH}.json`);
+  const resp = await fetch(QUEUE_JSON_URL);
   if (!resp.ok) return [];
   const json = await resp.json();
   return json.data || [];
 }
 
-async function saveQueue(data) {
-  const body = JSON.stringify({ data });
-  const resp = await fetch(
-    `${DA_ADMIN}/source/${OWNER}/${REPO}/${QUEUE_PATH}.json`,
-    {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body,
-    },
-  );
-  return resp.ok;
-}
-
-export async function addToQueue(entry) {
-  const queue = await fetchQueue();
-  queue.push(entry);
-  return saveQueue(queue);
-}
-
 function renderDashboard(container, queue) {
   const pending = queue.filter((r) => r.status === 'pending');
-  const history = queue.filter((r) => r.status !== 'pending');
+  const approved = queue.filter((r) => r.status === 'approved');
+  const rejected = queue.filter((r) => r.status === 'rejected');
 
   container.innerHTML = `
     <style>
-      .ad { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 900px; margin: 0 auto; padding: 24px; }
-      .ad h1 { font-size: 24px; margin: 0 0 8px; }
+      * { box-sizing: border-box; }
+      body { margin: 0; }
+      .ad { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 960px; margin: 0 auto; padding: 32px 24px; }
+      .ad h1 { font-size: 24px; margin: 0 0 4px; }
       .ad .subtitle { color: #6b7280; margin: 0 0 24px; font-size: 14px; }
-      .ad h2 { font-size: 18px; margin: 24px 0 12px; }
-      .ad table { width: 100%; border-collapse: collapse; font-size: 14px; }
-      .ad th, .ad td { padding: 10px 12px; text-align: left; border-bottom: 1px solid #e5e7eb; }
-      .ad th { font-weight: 600; background: #f9fafb; }
-      .ad .btn { padding: 6px 14px; font-size: 13px; font-weight: 600; border: none; border-radius: 4px; cursor: pointer; }
-      .ad .btn-approve { background: #059669; color: #fff; }
-      .ad .btn-approve:hover { background: #047857; }
-      .ad .btn-reject { background: #dc2626; color: #fff; margin-left: 6px; }
-      .ad .btn-reject:hover { background: #b91c1c; }
-      .ad .badge { padding: 3px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; display: inline-block; }
+      .ad h2 { font-size: 16px; margin: 20px 0 10px; color: #374151; }
+      .ad table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 16px; }
+      .ad th, .ad td { padding: 8px 10px; text-align: left; border-bottom: 1px solid #e5e7eb; }
+      .ad th { font-weight: 600; background: #f9fafb; color: #6b7280; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+      .ad .badge { padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; display: inline-block; }
+      .ad .badge-pending { background: #fef3c7; color: #92400e; }
       .ad .badge-approved { background: #d1fae5; color: #065f46; }
       .ad .badge-rejected { background: #fee2e2; color: #991b1b; }
-      .ad .empty { color: #6b7280; font-style: italic; padding: 20px 0; }
-      .ad .refresh { padding: 8px 16px; background: #2563eb; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-size: 13px; }
-      .ad .refresh:hover { background: #1d4ed8; }
+      .ad .empty { color: #9ca3af; font-style: italic; padding: 16px 0; font-size: 14px; }
+      .ad .toolbar { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+      .ad .btn { padding: 10px 18px; font-size: 13px; font-weight: 600; border: none; border-radius: 6px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+      .ad .btn-primary { background: #2563eb; color: #fff; }
+      .ad .btn-primary:hover { background: #1d4ed8; }
+      .ad .btn-secondary { background: #f3f4f6; color: #374151; border: 1px solid #d1d5db; }
+      .ad .btn-secondary:hover { background: #e5e7eb; }
+      .ad .stats { display: flex; gap: 16px; margin-bottom: 24px; }
+      .ad .stat { background: #fff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px 20px; flex: 1; text-align: center; }
+      .ad .stat-num { font-size: 28px; font-weight: 700; }
+      .ad .stat-num.pending { color: #d97706; }
+      .ad .stat-num.approved { color: #059669; }
+      .ad .stat-num.rejected { color: #dc2626; }
+      .ad .stat-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+      .ad .info { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px 16px; border-radius: 8px; font-size: 13px; color: #1e40af; margin-bottom: 20px; }
+      .ad .info a { color: #1d4ed8; font-weight: 600; }
     </style>
     <div class="ad">
       <h1>Publish Approval Dashboard</h1>
-      <p class="subtitle">Review and approve content publish requests</p>
-      <button class="refresh" id="refresh-queue">Refresh Queue</button>
+      <p class="subtitle">Manage content publish requests for eds-dalive-client</p>
 
-      <h2>Pending Requests (${pending.length})</h2>
+      <div class="info">
+        To <strong>approve</strong> or <strong>reject</strong> a request, open the
+        <a href="${QUEUE_SHEET_URL}" target="_blank">publish-queue sheet</a>
+        and change the <code>status</code> column from "pending" to "approved" or "rejected".
+      </div>
+
+      <div class="toolbar">
+        <button class="btn btn-primary" id="refresh-queue">Refresh</button>
+        <a class="btn btn-secondary" href="${QUEUE_SHEET_URL}" target="_blank">Open Queue Sheet</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num pending">${pending.length}</div>
+          <div class="stat-label">Pending</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num approved">${approved.length}</div>
+          <div class="stat-label">Approved</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num rejected">${rejected.length}</div>
+          <div class="stat-label">Rejected</div>
+        </div>
+      </div>
+
+      <h2>Pending Requests</h2>
       ${pending.length === 0 ? '<p class="empty">No pending requests.</p>' : `
       <table>
-        <thead><tr><th>Page</th><th>Requested By</th><th>Date</th><th>Reason</th><th>Actions</th></tr></thead>
+        <thead><tr><th>Page</th><th>Requested By</th><th>Date</th><th>Reason</th><th>Status</th></tr></thead>
         <tbody>
-          ${pending.map((r, i) => `
+          ${pending.map((r) => `
           <tr>
             <td><a href="https://da.live/edit#/${OWNER}/${REPO}${r.page}" target="_blank">${r.page}</a></td>
             <td>${r.requestedBy || ''}</td>
             <td>${r.requestedAt ? new Date(r.requestedAt).toLocaleDateString() : ''}</td>
             <td>${r.reason || ''}</td>
-            <td>
-              <button class="btn btn-approve" data-idx="${i}">Approve</button>
-              <button class="btn btn-reject" data-idx="${i}">Reject</button>
-            </td>
+            <td><span class="badge badge-pending">pending</span></td>
           </tr>`).join('')}
         </tbody>
       </table>`}
 
-      <h2>History</h2>
-      ${history.length === 0 ? '<p class="empty">No history yet.</p>' : `
+      <h2>Recent History</h2>
+      ${[...approved, ...rejected].length === 0 ? '<p class="empty">No history yet.</p>' : `
       <table>
         <thead><tr><th>Page</th><th>Requested By</th><th>Status</th><th>Reviewed At</th></tr></thead>
         <tbody>
-          ${history.slice(0, 20).map((r) => `
+          ${[...approved, ...rejected].slice(0, 15).map((r) => `
           <tr>
             <td>${r.page}</td>
             <td>${r.requestedBy || ''}</td>
@@ -98,108 +111,60 @@ function renderDashboard(container, queue) {
   `;
 
   container.querySelector('#refresh-queue').addEventListener('click', async () => {
-    container.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280;">Loading...</p>';
+    container.innerHTML = '<p style="padding:40px;text-align:center;color:#6b7280;font-family:sans-serif;">Loading...</p>';
     const freshQueue = await fetchQueue();
     renderDashboard(container, freshQueue);
-  });
-
-  container.querySelectorAll('.btn-approve').forEach((btn) => {
-    btn.addEventListener('click', async (e) => {
-      const idx = parseInt(e.target.dataset.idx, 10);
-      const fullIdx = queue.indexOf(pending[idx]);
-      e.target.disabled = true;
-      e.target.textContent = '...';
-      queue[fullIdx].status = 'approved';
-      queue[fullIdx].reviewedBy = 'admin';
-      queue[fullIdx].reviewedAt = new Date().toISOString();
-      const ok = await saveQueue(queue);
-      if (ok) {
-        renderDashboard(container, queue);
-      } else {
-        e.target.disabled = false;
-        e.target.textContent = 'Approve';
-      }
-    });
-  });
-
-  container.querySelectorAll('.btn-reject').forEach((btn) => {
-    btn.addEventListener('click', async (e) => {
-      const idx = parseInt(e.target.dataset.idx, 10);
-      const fullIdx = queue.indexOf(pending[idx]);
-      e.target.disabled = true;
-      e.target.textContent = '...';
-      queue[fullIdx].status = 'rejected';
-      queue[fullIdx].reviewedBy = 'admin';
-      queue[fullIdx].reviewedAt = new Date().toISOString();
-      const ok = await saveQueue(queue);
-      if (ok) {
-        renderDashboard(container, queue);
-      } else {
-        e.target.disabled = false;
-        e.target.textContent = 'Reject';
-      }
-    });
   });
 }
 
 export async function renderRequestForm(container, pagePath, userEmail) {
   container.innerHTML = `
     <style>
-      .rf { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 500px; padding: 24px; }
-      .rf h3 { margin: 0 0 16px; font-size: 20px; }
+      * { box-sizing: border-box; }
+      .rf { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 520px; padding: 32px 24px; }
+      .rf h3 { margin: 0 0 8px; font-size: 22px; }
+      .rf .page-path { color: #6b7280; font-size: 14px; margin: 0 0 24px; font-family: monospace; background: #f3f4f6; padding: 6px 10px; border-radius: 4px; display: inline-block; }
+      .rf .info { background: #eff6ff; border: 1px solid #bfdbfe; padding: 12px 16px; border-radius: 8px; font-size: 13px; color: #1e40af; margin-bottom: 20px; }
+      .rf .info a { color: #1d4ed8; font-weight: 600; }
       .rf label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 6px; }
-      .rf textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 80px; resize: vertical; box-sizing: border-box; }
-      .rf .btn { margin-top: 12px; padding: 10px 20px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+      .rf textarea { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; min-height: 80px; resize: vertical; }
+      .rf .fields { margin-bottom: 16px; }
+      .rf .field { margin-bottom: 12px; }
+      .rf input { width: 100%; padding: 10px; border: 1px solid #d1d5db; border-radius: 6px; font-size: 14px; }
+      .rf .btn { padding: 12px 24px; background: #2563eb; color: #fff; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
       .rf .btn:hover { background: #1d4ed8; }
-      .rf .btn:disabled { background: #9ca3af; cursor: not-allowed; }
-      .rf .success { color: #059669; font-weight: 600; margin-top: 12px; }
-      .rf .error { color: #dc2626; font-weight: 600; margin-top: 12px; }
+      .rf .copy-box { background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; padding: 12px; margin-top: 16px; }
+      .rf .copy-box p { margin: 0 0 8px; font-size: 13px; color: #6b7280; }
+      .rf .copy-box code { font-size: 12px; word-break: break-all; background: #fff; padding: 8px; display: block; border: 1px solid #e5e7eb; border-radius: 4px; }
     </style>
     <div class="rf">
-      <h3>Request Publish: ${pagePath}</h3>
-      <label for="publish-reason">Reason for publishing:</label>
-      <textarea id="publish-reason" placeholder="Describe your changes (min 10 characters)..."></textarea>
-      <button class="btn" id="submit-request">Submit Request</button>
-      <div id="request-status"></div>
+      <h3>Request Publish</h3>
+      <div class="page-path">${pagePath}</div>
+
+      <div class="info">
+        To submit a request, open the
+        <a href="${QUEUE_SHEET_URL}" target="_blank">publish-queue sheet</a>
+        and add a new row with your request details.
+      </div>
+
+      <p style="font-size:14px;color:#374151;margin:0 0 16px;">Copy these values and paste into the sheet:</p>
+
+      <div class="copy-box">
+        <p><strong>page:</strong></p>
+        <code id="val-page">${pagePath}</code>
+        <p style="margin-top:8px;"><strong>requestedBy:</strong></p>
+        <code id="val-by">${userEmail}</code>
+        <p style="margin-top:8px;"><strong>requestedAt:</strong></p>
+        <code id="val-date">${new Date().toISOString()}</code>
+        <p style="margin-top:8px;"><strong>status:</strong></p>
+        <code>pending</code>
+      </div>
+
+      <div style="margin-top:20px;">
+        <a class="btn" href="${QUEUE_SHEET_URL}" target="_blank">Open Queue Sheet to Submit</a>
+      </div>
     </div>
   `;
-
-  container.querySelector('#submit-request').addEventListener('click', async () => {
-    const reason = container.querySelector('#publish-reason').value.trim();
-    const statusEl = container.querySelector('#request-status');
-    const btn = container.querySelector('#submit-request');
-
-    if (reason.length < 10) {
-      statusEl.className = 'error';
-      statusEl.textContent = 'Reason must be at least 10 characters.';
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = 'Submitting...';
-
-    const entry = {
-      page: pagePath,
-      requestedBy: userEmail || 'unknown',
-      requestedAt: new Date().toISOString(),
-      reason,
-      status: 'pending',
-      reviewedBy: '',
-      reviewedAt: '',
-    };
-
-    const success = await addToQueue(entry);
-    if (success) {
-      statusEl.className = 'success';
-      statusEl.textContent = 'Publish request submitted! An admin will review it.';
-      btn.textContent = 'Submitted';
-    } else {
-      statusEl.className = 'error';
-      statusEl.textContent = 'Failed to submit. Please try again.';
-      btn.disabled = false;
-      btn.textContent = 'Submit Request';
-    }
-  });
 }
 
 export async function initDashboard(container) {

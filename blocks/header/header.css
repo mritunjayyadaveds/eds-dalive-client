@@ -490,6 +490,164 @@ header nav[aria-expanded='true'] .nav-tools {
   }
 }
 
+/* stylelint-disable no-descending-specificity */
+
+/* ===== Variant: Dark ===== */
+.header.dark .nav-wrapper {
+  background-color: #0f1119;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+}
+
+.header.dark .nav-wrapper.nav-scrolled {
+  background-color: rgb(15 17 25 / 92%);
+  border-bottom-color: transparent;
+}
+
+.header.dark nav a:any-link {
+  color: rgb(255 255 255 / 85%);
+}
+
+.header.dark nav a:hover {
+  color: #fff;
+}
+
+.header.dark .nav-brand img {
+  filter: brightness(0) invert(1);
+}
+
+.header.dark .nav-sections .default-content-wrapper > ul > li {
+  color: rgb(255 255 255 / 85%);
+}
+
+.header.dark .nav-tools .nav-login {
+  color: rgb(255 255 255 / 85%);
+}
+
+.header.dark .nav-tools .nav-login:hover {
+  color: #fff;
+}
+
+.header.dark .nav-tools .nav-contact {
+  color: #fff;
+  border-color: rgb(255 255 255 / 20%);
+}
+
+.header.dark .nav-tools .nav-contact:hover {
+  background-color: rgb(255 255 255 / 10%);
+  border-color: rgb(255 255 255 / 35%);
+}
+
+.header.dark .nav-hamburger .hamburger-line {
+  background: #fff;
+}
+
+.header.dark .nav-hamburger:hover {
+  background-color: rgb(255 255 255 / 8%);
+}
+
+.header.dark .nav-dropdown {
+  background: #1a1d2b;
+  border-color: rgb(255 255 255 / 10%);
+}
+
+.header.dark .nav-dropdown::before {
+  background: #1a1d2b;
+  border-color: rgb(255 255 255 / 10%);
+}
+
+.header.dark .nav-drop[aria-expanded='true'] .nav-dropdown li a {
+  color: rgb(255 255 255 / 75%);
+}
+
+.header.dark .nav-drop[aria-expanded='true'] .nav-dropdown li a:hover {
+  background-color: rgb(255 255 255 / 6%);
+  color: #fff;
+}
+
+.header.dark .nav-progress-bar {
+  background: #fff;
+}
+
+/* ===== Variant: Transparent ===== */
+.header.transparent .nav-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent;
+  border-bottom: none;
+  z-index: 100;
+}
+
+.header.transparent .nav-wrapper.nav-scrolled {
+  position: sticky;
+  background-color: rgb(255 255 255 / 92%);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 16px rgb(0 0 0 / 8%);
+}
+
+.header.transparent:not(.nav-scrolled) nav a:any-link {
+  color: rgb(255 255 255 / 90%);
+}
+
+.header.transparent:not(.nav-scrolled) nav a:hover {
+  color: #fff;
+}
+
+.header.transparent:not(.nav-scrolled) .nav-brand img {
+  filter: brightness(0) invert(1);
+}
+
+.header.transparent:not(.nav-scrolled) .nav-sections .default-content-wrapper > ul > li {
+  color: rgb(255 255 255 / 90%);
+}
+
+.header.transparent:not(.nav-scrolled) .nav-tools .nav-login {
+  color: rgb(255 255 255 / 90%);
+}
+
+.header.transparent:not(.nav-scrolled) .nav-tools .nav-contact {
+  color: #fff;
+  border-color: rgb(255 255 255 / 25%);
+}
+
+.header.transparent:not(.nav-scrolled) .nav-tools .nav-contact:hover {
+  background-color: rgb(255 255 255 / 12%);
+  border-color: rgb(255 255 255 / 40%);
+}
+
+.header.transparent:not(.nav-scrolled) .nav-hamburger .hamburger-line {
+  background: #fff;
+}
+
+.header.transparent .nav-progress-bar {
+  display: none;
+}
+
+/* ===== Variant: Minimal ===== */
+.header.minimal .nav-sections {
+  display: none !important;
+}
+
+.header.minimal .nav-tools {
+  margin-left: auto;
+}
+
+.header.minimal nav {
+  gap: 16px;
+}
+
+.header.minimal .nav-hamburger {
+  display: none;
+}
+
+@media (width >= 900px) {
+  .header.minimal .nav-tools {
+    display: flex;
+  }
+}
+/* stylelint-enable no-descending-specificity */
+
 /* ===== Focus styles ===== */
 /* stylelint-disable no-descending-specificity */
 header .nav-brand a:focus-visible,

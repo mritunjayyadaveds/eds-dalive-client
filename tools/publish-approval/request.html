@@ -5,23 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Request Publish</title>
   <style>
-    body {
-      margin: 0;
-      padding: 24px;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: #fff;
-    }
+    body { margin: 0; padding: 24px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fff; }
   </style>
 </head>
 <body>
   <div id="form"></div>
   <script type="module">
     import { renderRequestForm } from './publish-approval.js';
-
     const params = new URLSearchParams(window.location.search);
     const path = params.get('path') || '/unknown';
     const email = params.get('email') || 'author';
-
     renderRequestForm(document.getElementById('form'), path, email);
   </script>
 </body>

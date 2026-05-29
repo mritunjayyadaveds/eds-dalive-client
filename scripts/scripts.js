@@ -10,6 +10,7 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  getMetadata,
 } from './aem.js';
 
 /**
@@ -114,7 +115,12 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
-  loadHeader(doc.querySelector('header'));
+  const header = doc.querySelector('header');
+  const headerTheme = getMetadata('theme');
+  if (headerTheme) {
+    headerTheme.split(',').forEach((t) => header.classList.add(t.trim()));
+  }
+  loadHeader(header);
 
   const main = doc.querySelector('main');
   await loadSections(main);
@@ -147,8 +153,7 @@ async function loadPage() {
 
 (async function loadDa() {
   if (!new URL(window.location.href).searchParams.get('dapreview')) return;
-  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage));
+  import('https://da.live/scripts/dapreview.js').then(({ default: daPreview }) => daPreview(loadPage)); // eslint-disable-line import/no-unresolved
 }());
-
 
 loadPage();

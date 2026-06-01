@@ -3,7 +3,7 @@ name: Publish Approval Request
 on:
   repository_dispatch:
     types:
-      - publish-requested
+      - resource-publish-requested
 
 jobs:
   notify-approver:

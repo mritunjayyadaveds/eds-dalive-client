@@ -117,24 +117,10 @@ async function requestPublishAction() {
 }
 
 export default async function decorate(container, _data, sk) {
-  const role = await getUserRole();
-  if (role === 'author') {
-    const publishBtn = sk?.shadowRoot?.querySelector('[data-plugin="publish"]')
-      || sk?.querySelector?.('[data-plugin="publish"]');
-    if (publishBtn) {
-      publishBtn.style.display = 'none';
-    }
-  }
-
   const btn = document.createElement('button');
   btn.textContent = 'Request Publish';
   btn.title = 'Submit a publish request for approval';
   btn.style.cssText = 'background:#1473e6;color:#fff;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:500;';
   btn.addEventListener('click', requestPublishAction);
-
-  if (role !== 'author') {
-    btn.style.display = 'none';
-  }
-
   container.appendChild(btn);
 }

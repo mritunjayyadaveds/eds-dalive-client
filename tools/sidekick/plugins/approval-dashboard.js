@@ -167,17 +167,11 @@ async function openDashboard() {
 }
 
 export default async function decorate(container, _data, sk) {
-  const role = await getUserRole();
-
   const btn = document.createElement('button');
   btn.textContent = 'Approvals';
   btn.title = 'View and manage publish approval requests';
   btn.style.cssText = 'background:#6b21a8;color:#fff;border:none;border-radius:4px;padding:6px 12px;cursor:pointer;font-size:13px;font-weight:500;';
   btn.addEventListener('click', openDashboard);
-
-  if (role !== 'approver') {
-    btn.style.display = 'none';
-  }
 
   const badge = document.createElement('span');
   badge.className = 'workflow-badge';
@@ -188,12 +182,12 @@ export default async function decorate(container, _data, sk) {
   wrapper.append(btn, badge);
   container.appendChild(wrapper);
 
-  if (role === 'approver') {
+  try {
     const requests = await fetchApprovalRequests();
     const pending = requests.filter((r) => r.status === 'pending');
     if (pending.length > 0) {
       badge.textContent = pending.length > 9 ? '9+' : pending.length;
       badge.style.display = 'block';
     }
-  }
+  } catch (e) { /* silent */ }
 }

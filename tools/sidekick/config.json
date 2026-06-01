@@ -3,5 +3,21 @@
   "contentSourceUrl": "https://content.da.live/mritunjayyadaveds/eds-dalive-client",
   "libs": [
     "/tools/sidekick/library"
+  ],
+  "plugins": [
+    {
+      "id": "request-publish",
+      "title": "Request Publish",
+      "url": "/tools/sidekick/plugins/request-publish.js",
+      "environments": ["edit"],
+      "excludePaths": ["/tools/**"]
+    },
+    {
+      "id": "approval-dashboard",
+      "title": "Approvals",
+      "url": "/tools/sidekick/plugins/approval-dashboard.js",
+      "environments": ["edit", "preview"],
+      "excludePaths": ["/tools/**"]
+    }
   ]
 }

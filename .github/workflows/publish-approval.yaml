@@ -2,7 +2,8 @@ name: Publish Approval Request
 
 on:
   repository_dispatch:
-    types: [preview]
+    types:
+      - publish-requested
 
 jobs:
   notify-approver:

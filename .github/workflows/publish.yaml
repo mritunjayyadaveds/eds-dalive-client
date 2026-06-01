@@ -14,4 +14,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Publish Triggered
-        run: echo "EDS Publish workflow registered"
+        run: echo "EDS Publish workflow registered"  

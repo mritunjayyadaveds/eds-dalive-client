@@ -35,11 +35,11 @@
       "id": "subscribe",
       "fields": [
         {
-          "component": "reference",
+          "component": "text",
           "valueType": "string",
           "name": "backgroundImage",
-          "label": "Background Image",
-          "multi": false
+          "label": "Background Image URL",
+          "value": ""
         }
       ]
     },

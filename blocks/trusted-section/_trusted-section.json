@@ -69,11 +69,11 @@
           "value": ""
         },
         {
-          "component": "reference",
+          "component": "text",
           "valueType": "string",
           "name": "icon",
-          "label": "Icon Image",
-          "multi": false
+          "label": "Icon Image URL",
+          "value": ""
         },
         {
           "component": "richtext",

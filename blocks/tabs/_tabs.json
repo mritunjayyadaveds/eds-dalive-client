@@ -52,11 +52,11 @@
       "id": "tab-item",
       "fields": [
         {
-          "component": "reference",
+          "component": "text",
           "valueType": "string",
           "name": "image",
-          "label": "Tab Image / Logo",
-          "multi": false
+          "label": "Tab Image URL",
+          "value": ""
         },
         {
           "component": "text",

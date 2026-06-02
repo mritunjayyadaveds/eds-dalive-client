@@ -53,11 +53,11 @@
       "id": "spotlight-item",
       "fields": [
         {
-          "component": "reference",
+          "component": "text",
           "valueType": "string",
           "name": "image",
-          "label": "Thumbnail Image",
-          "multi": false
+          "label": "Thumbnail Image URL",
+          "value": ""
         },
         {
           "component": "text",

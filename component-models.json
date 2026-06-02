@@ -469,4 +469,80 @@
         "valueType": "string",
         "name": "imageAlt",
         "label": "Image Alt Text",
-        
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "name": "text",
+        "value": "",
+        "label": "Tab Content",
+        "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "trusted-section",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "label": "Eyebrow Text",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "headline",
+        "label": "Headline",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "trusted-section-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Pillar Title",
+        "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "icon",
+        "label": "Icon Image",
+        "multi": false
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "youtube",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "url",
+        "label": "YouTube URL",
+        "description": "Paste a YouTube video link (e.g. https://www.youtube.com/watch?v=...)",
+        "value": ""
+      }
+    ]
+  }
+]

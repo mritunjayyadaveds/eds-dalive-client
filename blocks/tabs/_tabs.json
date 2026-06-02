@@ -23,8 +23,7 @@
           "rows": 1,
           "columns": 0,
           "fields": [
-            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
-            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
+            { "name": "image", "selector": "div:nth-child(1)" },
             { "name": "text", "selector": "div:nth-child(2)" }
           ]
         }
@@ -52,20 +51,10 @@
       "id": "tab-item",
       "fields": [
         {
-          "component": "reference",
+          "component": "richtext",
           "valueType": "string",
           "name": "image",
           "label": "Tab Image / Logo",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageAlt",
-          "label": "Image Alt Text",
           "value": ""
         },
         {

@@ -16,14 +16,11 @@
       "id": "image",
       "fields": [
         {
-          "component": "reference",
+          "component": "richtext",
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "value": ""
         },
         {
           "component": "text",

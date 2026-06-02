@@ -126,11 +126,7 @@
               "fields": [
                 {
                   "name": "image",
-                  "selector": "div:nth-child(1)>picture>img[src]"
-                },
-                {
-                  "name": "imageAlt",
-                  "selector": "div:nth-child(1)>picture>img[alt]"
+                  "selector": "div:nth-child(1)"
                 },
                 {
                   "name": "text",
@@ -213,15 +209,7 @@
               "fields": [
                 {
                   "name": "image",
-                  "selector": "div>div>picture>img[src]"
-                },
-                {
-                  "name": "imageAlt",
-                  "selector": "div>div>picture>img[alt]"
-                },
-                {
-                  "name": "video",
-                  "selector": "div>div>a[href]"
+                  "selector": "div>div:nth-child(1)"
                 },
                 {
                   "name": "text",
@@ -256,15 +244,7 @@
               "fields": [
                 {
                   "name": "image",
-                  "selector": "div:nth-child(1)>picture>img[src]"
-                },
-                {
-                  "name": "imageAlt",
-                  "selector": "div:nth-child(1)>picture>img[alt]"
-                },
-                {
-                  "name": "videoUrl",
-                  "selector": "div:nth-child(1)>a[href]"
+                  "selector": "div:nth-child(1)"
                 },
                 {
                   "name": "text",
@@ -369,11 +349,7 @@
               "fields": [
                 {
                   "name": "image",
-                  "selector": "div:nth-child(1)>picture>img[src]"
-                },
-                {
-                  "name": "imageAlt",
-                  "selector": "div:nth-child(1)>picture>img[alt]"
+                  "selector": "div:nth-child(1)"
                 },
                 {
                   "name": "text",
@@ -412,7 +388,7 @@
                 },
                 {
                   "name": "icon",
-                  "selector": "div:nth-child(2)>picture>img[src]"
+                  "selector": "div:nth-child(2)"
                 },
                 {
                   "name": "description",

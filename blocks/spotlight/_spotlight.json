@@ -23,9 +23,7 @@
           "rows": 1,
           "columns": 0,
           "fields": [
-            { "name": "image", "selector": "div:nth-child(1)>picture>img[src]" },
-            { "name": "imageAlt", "selector": "div:nth-child(1)>picture>img[alt]" },
-            { "name": "videoUrl", "selector": "div:nth-child(1)>a[href]" },
+            { "name": "image", "selector": "div:nth-child(1)" },
             { "name": "text", "selector": "div:nth-child(2)" }
           ]
         }
@@ -53,28 +51,10 @@
       "id": "spotlight-item",
       "fields": [
         {
-          "component": "reference",
+          "component": "richtext",
           "valueType": "string",
           "name": "image",
           "label": "Thumbnail Image",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "imageAlt",
-          "label": "Image Alt Text",
-          "value": ""
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "videoUrl",
-          "label": "YouTube Video URL",
-          "description": "Paste a YouTube link (e.g. https://www.youtube.com/watch?v=...)",
           "value": ""
         },
         {

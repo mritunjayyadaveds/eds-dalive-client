@@ -7,6 +7,7 @@
         {
           "title": "Text",
           "id": "text",
+          "model": "text",
           "plugins": {
             "da": {
               "name": "text"
@@ -66,6 +67,41 @@
       "id": "blocks",
       "components": [
         {
+          "title": "Accordion",
+          "id": "accordion",
+          "model": "accordion",
+          "filter": "accordion",
+          "plugins": {
+            "da": {
+              "name": "accordion",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Accordion Item",
+          "id": "accordion-item",
+          "model": "accordion-item",
+          "plugins": {
+            "da": {
+              "name": "accordion-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "model": "cards",
@@ -108,6 +144,7 @@
           "title": "Columns",
           "id": "columns",
           "model": "columns",
+          "filter": "columns",
           "plugins": {
             "da": {
               "name": "columns",
@@ -120,24 +157,29 @@
           "title": "Countries",
           "id": "countries",
           "model": "countries",
-          "filter": "countries",
           "plugins": {
             "da": {
               "name": "countries",
               "rows": 1,
-              "columns": 2
+              "columns": 1
             }
           }
         },
         {
-          "title": "Countries Item",
-          "id": "countries-item",
-          "model": "countries-item",
+          "title": "Embed",
+          "id": "embed",
+          "model": "embed",
           "plugins": {
             "da": {
-              "name": "countries-item",
+              "name": "embed",
               "rows": 1,
-              "columns": 0
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "url",
+                  "selector": "div>div>a[href]"
+                }
+              ]
             }
           }
         },
@@ -233,6 +275,41 @@
           }
         },
         {
+          "title": "Stats",
+          "id": "stats",
+          "model": "stats",
+          "filter": "stats",
+          "plugins": {
+            "da": {
+              "name": "stats",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Stat Item",
+          "id": "stat-item",
+          "model": "stat-item",
+          "plugins": {
+            "da": {
+              "name": "stat-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "value",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "label",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
           "title": "Subscribe",
           "id": "subscribe",
           "model": "subscribe",
@@ -301,6 +378,45 @@
                 {
                   "name": "text",
                   "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Trusted Section",
+          "id": "trusted-section",
+          "model": "trusted-section",
+          "filter": "trusted-section",
+          "plugins": {
+            "da": {
+              "name": "trusted-section",
+              "rows": 2,
+              "columns": 3
+            }
+          }
+        },
+        {
+          "title": "Trusted Section Item",
+          "id": "trusted-section-item",
+          "model": "trusted-section-item",
+          "plugins": {
+            "da": {
+              "name": "trusted-section-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "icon",
+                  "selector": "div:nth-child(2)>picture>img[src]"
+                },
+                {
+                  "name": "description",
+                  "selector": "div:nth-child(3)"
                 }
               ]
             }

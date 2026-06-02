@@ -51,7 +51,11 @@
         "countries",
         "spotlight",
         "subscribe",
-        "tabs"
+        "tabs",
+        "accordion",
+        "stats",
+        "trusted-section",
+        "embed"
       ]
     }
   ]

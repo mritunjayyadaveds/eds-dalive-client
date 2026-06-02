@@ -84,6 +84,17 @@
     ]
   },
   {
+    "id": "text",
+    "fields": [
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Text"
+      }
+    ]
+  },
+  {
     "id": "button",
     "fields": [
       {
@@ -145,6 +156,57 @@
     ]
   },
   {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "accordion-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title",
+        "value": ""
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "text",
+        "label": "Content",
+        "value": ""
+      }
+    ]
+  },
+  {
+    "id": "cards",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "card",
     "fields": [
       {
@@ -177,21 +239,42 @@
         "component": "text",
         "valueType": "number",
         "name": "columns",
-        "value": "",
+        "value": "2",
         "label": "Columns"
       },
       {
         "component": "text",
         "valueType": "number",
         "name": "rows",
-        "value": "",
+        "value": "1",
         "label": "Rows"
       }
     ]
   },
   {
-    "id": "countries-item",
-    "fields": []
+    "id": "countries",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Dropdown Label",
+        "value": "Select a Country"
+      }
+    ]
+  },
+  {
+    "id": "embed",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "url",
+        "label": "Embed URL",
+        "description": "Paste a URL to embed (YouTube, Vimeo, or any iframe-compatible URL)",
+        "value": ""
+      }
+    ]
   },
   {
     "id": "fragment",
@@ -239,6 +322,22 @@
     ]
   },
   {
+    "id": "spotlight",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "spotlight-item",
     "fields": [
       {
@@ -269,6 +368,42 @@
         "value": "",
         "label": "Label Text",
         "valueType": "string"
+      }
+    ]
+  },
+  {
+    "id": "stats",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "stat-item",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "value",
+        "label": "Value",
+        "description": "e.g. $2.5B, 1,200+, 98%",
+        "value": ""
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "label",
+        "label": "Label",
+        "value": ""
       }
     ]
   },
@@ -304,6 +439,22 @@
     ]
   },
   {
+    "id": "tabs",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "options": [
+          {
+            "name": "Highlight",
+            "value": "highlight"
+          }
+        ]
+      }
+    ]
+  },
+  {
     "id": "tab-item",
     "fields": [
       {
@@ -318,28 +469,4 @@
         "valueType": "string",
         "name": "imageAlt",
         "label": "Image Alt Text",
-        "value": ""
-      },
-      {
-        "component": "richtext",
-        "name": "text",
-        "value": "",
-        "label": "Tab Content",
-        "valueType": "string"
-      }
-    ]
-  },
-  {
-    "id": "youtube",
-    "fields": [
-      {
-        "component": "text",
-        "valueType": "string",
-        "name": "url",
-        "label": "YouTube URL",
-        "description": "Paste a YouTube video link (e.g. https://www.youtube.com/watch?v=...)",
-        "value": ""
-      }
-    ]
-  }
-]
+        

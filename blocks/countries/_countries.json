@@ -4,40 +4,28 @@
       "title": "Countries",
       "id": "countries",
       "model": "countries",
-      "filter": "countries",
       "plugins": {
         "da": {
           "name": "countries",
           "rows": 1,
-          "columns": 2
-        }
-      }
-    },
-    {
-      "title": "Countries Item",
-      "id": "countries-item",
-      "model": "countries-item",
-      "plugins": {
-        "da": {
-          "name": "countries-item",
-          "rows": 1,
-          "columns": 0
+          "columns": 1
         }
       }
     }
   ],
   "models": [
     {
-      "id": "countries-item",
-      "fields": []
-    }
-  ],
-  "filters": [
-    {
       "id": "countries",
-      "components": [
-        "countries-item"
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "label",
+          "label": "Dropdown Label",
+          "value": "Select a Country"
+        }
       ]
     }
-  ]
+  ],
+  "filters": []
 }

@@ -4,6 +4,7 @@
       "title": "Columns",
       "id": "columns",
       "model": "columns",
+      "filter": "columns",
       "plugins": {
         "da": {
           "name": "columns",
@@ -21,14 +22,14 @@
           "component": "text",
           "valueType": "number",
           "name": "columns",
-          "value": "",
+          "value": "2",
           "label": "Columns"
         },
         {
           "component": "text",
           "valueType": "number",
           "name": "rows",
-          "value": "",
+          "value": "1",
           "label": "Rows"
         }
       ]

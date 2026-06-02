@@ -1,0 +1,96 @@
+{
+  "definitions": [
+    {
+      "title": "Trusted Section",
+      "id": "trusted-section",
+      "model": "trusted-section",
+      "filter": "trusted-section",
+      "plugins": {
+        "da": {
+          "name": "trusted-section",
+          "rows": 2,
+          "columns": 3
+        }
+      }
+    },
+    {
+      "title": "Trusted Section Item",
+      "id": "trusted-section-item",
+      "model": "trusted-section-item",
+      "plugins": {
+        "da": {
+          "name": "trusted-section-item",
+          "rows": 1,
+          "columns": 0,
+          "fields": [
+            { "name": "title", "selector": "div:nth-child(1)" },
+            { "name": "icon", "selector": "div:nth-child(2)>picture>img[src]" },
+            { "name": "description", "selector": "div:nth-child(3)" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "trusted-section",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "eyebrow",
+          "label": "Eyebrow Text",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "headline",
+          "label": "Headline",
+          "value": ""
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "id": "trusted-section-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Pillar Title",
+          "value": ""
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "icon",
+          "label": "Icon Image",
+          "multi": false
+        },
+        {
+          "component": "richtext",
+          "valueType": "string",
+          "name": "description",
+          "label": "Description",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "trusted-section",
+      "components": [
+        "trusted-section-item"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "definitions": [
+    {
+      "title": "Embed",
+      "id": "embed",
+      "model": "embed",
+      "plugins": {
+        "da": {
+          "name": "embed",
+          "rows": 1,
+          "columns": 1,
+          "fields": [
+            { "name": "url", "selector": "div>div>a[href]" }
+          ]
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "embed",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "url",
+          "label": "Embed URL",
+          "description": "Paste a URL to embed (YouTube, Vimeo, or any iframe-compatible URL)",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "filters": []
+}

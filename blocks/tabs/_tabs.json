@@ -33,6 +33,22 @@
   ],
   "models": [
     {
+      "id": "tabs",
+      "fields": [
+        {
+          "component": "multiselect",
+          "name": "classes",
+          "label": "Style",
+          "options": [
+            {
+              "name": "Highlight",
+              "value": "highlight"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "tab-item",
       "fields": [
         {

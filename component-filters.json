@@ -20,7 +20,17 @@
       "countries",
       "spotlight",
       "subscribe",
-      "tabs"
+      "tabs",
+      "accordion",
+      "stats",
+      "trusted-section",
+      "embed"
+    ]
+  },
+  {
+    "id": "accordion",
+    "components": [
+      "accordion-item"
     ]
   },
   {
@@ -41,15 +51,15 @@
     ]
   },
   {
-    "id": "countries",
-    "components": [
-      "countries-item"
-    ]
-  },
-  {
     "id": "spotlight",
     "components": [
       "spotlight-item"
+    ]
+  },
+  {
+    "id": "stats",
+    "components": [
+      "stat-item"
     ]
   },
   {
@@ -62,6 +72,12 @@
     "id": "tabs",
     "components": [
       "tab-item"
+    ]
+  },
+  {
+    "id": "trusted-section",
+    "components": [
+      "trusted-section-item"
     ]
   }
 ]

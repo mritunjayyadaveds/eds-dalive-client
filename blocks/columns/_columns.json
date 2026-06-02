@@ -3,15 +3,12 @@
     {
       "title": "Columns",
       "id": "columns",
+      "model": "columns",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/columns/v1/columns",
-            "template": {
-              "columns": "2",
-              "rows": "1"
-            }
-          }
+        "da": {
+          "name": "columns",
+          "rows": 1,
+          "columns": 2
         }
       }
     }
@@ -40,12 +37,6 @@
   "filters": [
     {
       "id": "columns",
-      "components": [
-        "column"
-      ]
-    },
-    {
-      "id": "column",
       "components": [
         "text",
         "image",

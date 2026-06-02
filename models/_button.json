@@ -3,14 +3,10 @@
     {
       "title": "Button",
       "id": "button",
+      "model": "button",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/button/v1/button",
-            "template": {
-              "model": "button"
-            }
-          }
+        "da": {
+          "name": "button"
         }
       }
     }

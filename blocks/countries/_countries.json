@@ -3,31 +3,25 @@
     {
       "title": "Countries",
       "id": "countries",
+      "model": "countries",
+      "filter": "countries",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Countries",
-              "model": "countries",
-              "filter": "countries"
-            }
-          }
+        "da": {
+          "name": "countries",
+          "rows": 1,
+          "columns": 2
         }
       }
     },
     {
       "title": "Countries Item",
       "id": "countries-item",
+      "model": "countries-item",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block/item",
-            "template": {
-              "name": "Countries Item",
-              "model": "countries-item"
-            }
-          }
+        "da": {
+          "name": "countries-item",
+          "rows": 1,
+          "columns": 0
         }
       }
     }

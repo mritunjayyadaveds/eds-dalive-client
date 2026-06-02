@@ -3,15 +3,15 @@
     {
       "title": "Youtube",
       "id": "youtube",
+      "model": "youtube",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
-            "template": {
-              "name": "Youtube",
-              "model": "youtube"
-            }
-          }
+        "da": {
+          "name": "youtube",
+          "rows": 1,
+          "columns": 1,
+          "fields": [
+            { "name": "url", "selector": "div>div>a[href]" }
+          ]
         }
       }
     }

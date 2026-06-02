@@ -1,0 +1,330 @@
+{
+  "groups": [
+    {
+      "title": "Default Content",
+      "id": "default",
+      "components": [
+        {
+          "title": "Text",
+          "id": "text",
+          "plugins": {
+            "da": {
+              "name": "text"
+            }
+          }
+        },
+        {
+          "title": "Title",
+          "id": "title",
+          "model": "title",
+          "plugins": {
+            "da": {
+              "name": "title"
+            }
+          }
+        },
+        {
+          "title": "Image",
+          "id": "image",
+          "model": "image",
+          "plugins": {
+            "da": {
+              "name": "image"
+            }
+          }
+        },
+        {
+          "title": "Button",
+          "id": "button",
+          "model": "button",
+          "plugins": {
+            "da": {
+              "name": "button"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Sections",
+      "id": "sections",
+      "components": [
+        {
+          "title": "Section",
+          "id": "section",
+          "model": "section",
+          "plugins": {
+            "da": {
+              "name": "section"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "title": "Blocks",
+      "id": "blocks",
+      "components": [
+        {
+          "title": "Cards",
+          "id": "cards",
+          "model": "cards",
+          "filter": "cards",
+          "plugins": {
+            "da": {
+              "name": "cards",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Card",
+          "id": "card",
+          "model": "card",
+          "plugins": {
+            "da": {
+              "name": "card",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Columns",
+          "id": "columns",
+          "model": "columns",
+          "plugins": {
+            "da": {
+              "name": "columns",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Countries",
+          "id": "countries",
+          "model": "countries",
+          "filter": "countries",
+          "plugins": {
+            "da": {
+              "name": "countries",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Countries Item",
+          "id": "countries-item",
+          "model": "countries-item",
+          "plugins": {
+            "da": {
+              "name": "countries-item",
+              "rows": 1,
+              "columns": 0
+            }
+          }
+        },
+        {
+          "title": "Fragment",
+          "id": "fragment",
+          "model": "fragment",
+          "plugins": {
+            "da": {
+              "name": "fragment",
+              "rows": 1,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "reference",
+                  "selector": "div>div>a[href]"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Hero",
+          "id": "hero",
+          "model": "hero",
+          "plugins": {
+            "da": {
+              "name": "hero",
+              "rows": 1,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div>div>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div>div>picture>img[alt]"
+                },
+                {
+                  "name": "video",
+                  "selector": "div>div>a[href]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div>div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Spotlight",
+          "id": "spotlight",
+          "model": "spotlight",
+          "filter": "spotlight",
+          "plugins": {
+            "da": {
+              "name": "spotlight",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Spotlight Item",
+          "id": "spotlight-item",
+          "model": "spotlight-item",
+          "plugins": {
+            "da": {
+              "name": "spotlight-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "videoUrl",
+                  "selector": "div:nth-child(1)>a[href]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Subscribe",
+          "id": "subscribe",
+          "model": "subscribe",
+          "filter": "subscribe",
+          "plugins": {
+            "da": {
+              "name": "subscribe",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Subscribe Item",
+          "id": "subscribe-item",
+          "model": "subscribe-item",
+          "plugins": {
+            "da": {
+              "name": "subscribe-item",
+              "rows": 2,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "title",
+                  "selector": "div:nth-child(1)"
+                },
+                {
+                  "name": "description",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Tabs",
+          "id": "tabs",
+          "model": "tabs",
+          "filter": "tabs",
+          "plugins": {
+            "da": {
+              "name": "tabs",
+              "rows": 1,
+              "columns": 2
+            }
+          }
+        },
+        {
+          "title": "Tab",
+          "id": "tab-item",
+          "model": "tab-item",
+          "plugins": {
+            "da": {
+              "name": "tab-item",
+              "rows": 1,
+              "columns": 0,
+              "fields": [
+                {
+                  "name": "image",
+                  "selector": "div:nth-child(1)>picture>img[src]"
+                },
+                {
+                  "name": "imageAlt",
+                  "selector": "div:nth-child(1)>picture>img[alt]"
+                },
+                {
+                  "name": "text",
+                  "selector": "div:nth-child(2)"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "title": "Youtube",
+          "id": "youtube",
+          "model": "youtube",
+          "plugins": {
+            "da": {
+              "name": "youtube",
+              "rows": 1,
+              "columns": 1,
+              "fields": [
+                {
+                  "name": "url",
+                  "selector": "div>div>a[href]"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

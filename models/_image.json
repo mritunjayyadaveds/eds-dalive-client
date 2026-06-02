@@ -3,15 +3,10 @@
     {
       "title": "Image",
       "id": "image",
+      "model": "image",
       "plugins": {
-        "xwalk": {
-          "page": {
-            "resourceType": "core/franklin/components/image/v1/image",
-            "template": {
-              "image": "",
-              "imageAlt": ""
-            }
-          }
+        "da": {
+          "name": "image"
         }
       }
     }
@@ -25,10 +20,7 @@
           "valueType": "string",
           "name": "image",
           "label": "Image",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "multi": false
         },
         {
           "component": "text",

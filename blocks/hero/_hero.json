@@ -24,12 +24,15 @@
       "id": "hero",
       "fields": [
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Background Image URL",
+          "label": "Background Image",
           "description": "Fallback image if no video is set",
-          "value": ""
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "text",
@@ -39,12 +42,15 @@
           "value": ""
         },
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "video",
-          "label": "Background Video URL (MP4)",
+          "label": "Background Video (MP4)",
           "description": "Upload an MP4 video to use as hero background",
-          "value": ""
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "richtext",

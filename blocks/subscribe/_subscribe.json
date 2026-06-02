@@ -35,11 +35,14 @@
       "id": "subscribe",
       "fields": [
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "backgroundImage",
-          "label": "Background Image URL",
-          "value": ""
+          "label": "Background Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         }
       ]
     },

@@ -52,11 +52,14 @@
       "id": "card",
       "fields": [
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Image URL",
-          "value": ""
+          "label": "Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "text",

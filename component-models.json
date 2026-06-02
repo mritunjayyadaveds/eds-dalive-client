@@ -27,11 +27,14 @@
     "id": "image",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image URL",
-        "value": ""
+        "label": "Image",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "text",
@@ -210,11 +213,14 @@
     "id": "card",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Image URL",
-        "value": ""
+        "label": "Image",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "text",
@@ -290,12 +296,15 @@
     "id": "hero",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Background Image URL",
+        "label": "Background Image",
         "description": "Fallback image if no video is set",
-        "value": ""
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "text",
@@ -305,12 +314,15 @@
         "value": ""
       },
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "video",
-        "label": "Background Video URL (MP4)",
+        "label": "Background Video (MP4)",
         "description": "Upload an MP4 video to use as hero background",
-        "value": ""
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "richtext",
@@ -341,11 +353,14 @@
     "id": "spotlight-item",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Thumbnail Image URL",
-        "value": ""
+        "label": "Thumbnail Image",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "text",
@@ -411,11 +426,14 @@
     "id": "subscribe",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "backgroundImage",
-        "label": "Background Image URL",
-        "value": ""
+        "label": "Background Image",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       }
     ]
   },
@@ -458,11 +476,14 @@
     "id": "tab-item",
     "fields": [
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Tab Image URL",
-        "value": ""
+        "label": "Tab Image / Logo",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "text",
@@ -517,11 +538,14 @@
         "value": ""
       },
       {
-        "component": "text",
+        "component": "reference",
         "valueType": "string",
         "name": "icon",
-        "label": "Icon Image URL",
-        "value": ""
+        "label": "Icon Image",
+        "multi": false,
+        "metaData": {
+          "editor": "aem-assets"
+        }
       },
       {
         "component": "richtext",

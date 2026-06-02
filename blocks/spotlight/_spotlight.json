@@ -53,11 +53,14 @@
       "id": "spotlight-item",
       "fields": [
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Thumbnail Image URL",
-          "value": ""
+          "label": "Thumbnail Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "text",

@@ -69,11 +69,14 @@
           "value": ""
         },
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "icon",
-          "label": "Icon Image URL",
-          "value": ""
+          "label": "Icon Image",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "richtext",

@@ -52,11 +52,14 @@
       "id": "tab-item",
       "fields": [
         {
-          "component": "text",
+          "component": "reference",
           "valueType": "string",
           "name": "image",
-          "label": "Tab Image URL",
-          "value": ""
+          "label": "Tab Image / Logo",
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "text",

@@ -115,6 +115,11 @@ async function loadEager(doc) {
  * @param {Element} doc The container element
  */
 async function loadLazy(doc) {
+  if (/\.(stage-ue|ue)\.da\.live$/.test(window.location.hostname)) {
+    // eslint-disable-next-line import/no-cycle
+    await import('./editor-support.js');
+  }
+
   const header = doc.querySelector('header');
   const headerTheme = getMetadata('theme');
   if (headerTheme) {

@@ -56,10 +56,7 @@
           "valueType": "string",
           "name": "image",
           "label": "Tab Image / Logo",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "multi": false
         },
         {
           "component": "text",

@@ -29,10 +29,7 @@
           "name": "image",
           "label": "Background Image",
           "description": "Fallback image if no video is set",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "multi": false
         },
         {
           "component": "text",
@@ -47,10 +44,7 @@
           "name": "video",
           "label": "Background Video (MP4)",
           "description": "Upload an MP4 video to use as hero background",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "multi": false
         },
         {
           "component": "richtext",

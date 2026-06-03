@@ -31,10 +31,7 @@
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -217,10 +214,7 @@
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -301,10 +295,7 @@
         "name": "image",
         "label": "Background Image",
         "description": "Fallback image if no video is set",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -319,10 +310,7 @@
         "name": "video",
         "label": "Background Video (MP4)",
         "description": "Upload an MP4 video to use as hero background",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "richtext",
@@ -357,10 +345,7 @@
         "valueType": "string",
         "name": "image",
         "label": "Thumbnail Image",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -430,10 +415,7 @@
         "valueType": "string",
         "name": "backgroundImage",
         "label": "Background Image",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       }
     ]
   },
@@ -480,10 +462,7 @@
         "valueType": "string",
         "name": "image",
         "label": "Tab Image / Logo",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "text",
@@ -542,10 +521,7 @@
         "valueType": "string",
         "name": "icon",
         "label": "Icon Image",
-        "multi": false,
-        "metaData": {
-          "editor": "aem-assets"
-        }
+        "multi": false
       },
       {
         "component": "richtext",

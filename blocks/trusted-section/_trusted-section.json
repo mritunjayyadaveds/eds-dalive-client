@@ -73,10 +73,7 @@
           "valueType": "string",
           "name": "icon",
           "label": "Icon Image",
-          "multi": false,
-          "metaData": {
-            "editor": "aem-assets"
-          }
+          "multi": false
         },
         {
           "component": "richtext",

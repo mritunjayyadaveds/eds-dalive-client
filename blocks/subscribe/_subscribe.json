@@ -35,11 +35,11 @@
       "id": "subscribe",
       "fields": [
         {
-          "component": "reference",
+          "component": "richtext",
           "valueType": "string",
           "name": "backgroundImage",
           "label": "Background Image",
-          "multi": false
+          "value": ""
         }
       ]
     },

@@ -24,7 +24,7 @@
           "columns": 0,
           "fields": [
             { "name": "title", "selector": "div:nth-child(1)" },
-            { "name": "icon", "selector": "div:nth-child(2)>picture>img[src]" },
+            { "name": "icon", "selector": "div:nth-child(2)" },
             { "name": "description", "selector": "div:nth-child(3)" }
           ]
         }
@@ -69,11 +69,11 @@
           "value": ""
         },
         {
-          "component": "reference",
+          "component": "richtext",
           "valueType": "string",
           "name": "icon",
           "label": "Icon Image",
-          "multi": false
+          "value": ""
         },
         {
           "component": "richtext",

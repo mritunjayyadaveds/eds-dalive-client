@@ -57,7 +57,10 @@
           "valueType": "string",
           "name": "image",
           "label": "Thumbnail Image",
-          "multi": false
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         },
         {
           "component": "text",

@@ -39,7 +39,10 @@
           "valueType": "string",
           "name": "backgroundImage",
           "label": "Background Image",
-          "multi": false
+          "multi": false,
+          "metaData": {
+            "editor": "aem-assets"
+          }
         }
       ]
     },

@@ -27,11 +27,11 @@
     "id": "image",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Image",
-        "value": ""
+        "multi": false
       },
       {
         "component": "text",
@@ -210,10 +210,17 @@
     "id": "card",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
+        "valueType": "string",
         "name": "image",
         "label": "Image",
+        "multi": false
+      },
+      {
+        "component": "text",
         "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
         "value": ""
       },
       {
@@ -283,12 +290,27 @@
     "id": "hero",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
-        "label": "Background Image / Video",
-        "description": "Drag and drop an image or paste a video URL",
+        "label": "Background Image",
+        "description": "Fallback image if no video is set",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
         "value": ""
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "video",
+        "label": "Background Video (MP4)",
+        "description": "Upload an MP4 video to use as hero background",
+        "multi": false
       },
       {
         "component": "richtext",
@@ -319,10 +341,17 @@
     "id": "spotlight-item",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Thumbnail Image",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
         "value": ""
       },
       {
@@ -382,11 +411,11 @@
     "id": "subscribe",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "backgroundImage",
         "label": "Background Image",
-        "value": ""
+        "multi": false
       }
     ]
   },
@@ -429,10 +458,17 @@
     "id": "tab-item",
     "fields": [
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "image",
         "label": "Tab Image / Logo",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "imageAlt",
+        "label": "Image Alt Text",
         "value": ""
       },
       {
@@ -481,11 +517,11 @@
         "value": ""
       },
       {
-        "component": "richtext",
+        "component": "reference",
         "valueType": "string",
         "name": "icon",
         "label": "Icon Image",
-        "value": ""
+        "multi": false
       },
       {
         "component": "richtext",

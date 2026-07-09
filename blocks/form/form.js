@@ -644,7 +644,21 @@ function buildForm(fields, submit) {
  */
 export default function decorate(block) {
   block.style.visibility = 'hidden';
-  const [source, submit] = [...block.querySelectorAll('a[href]')].map((a) => a.href);
+  const links = [...block.querySelectorAll('a[href]')];
+  const [sourceLink, submitLink] = links;
+  // the form definition is same-origin, so resolve it by pathname against the
+  // current origin (da.live may rewrite the raw href to a different host)
+  let source;
+  if (sourceLink) {
+    const raw = sourceLink.getAttribute('href');
+    try {
+      const url = new URL(raw, window.location.origin);
+      source = `${url.pathname}${url.search}`;
+    } catch (e) {
+      source = raw;
+    }
+  }
+  const submit = submitLink ? submitLink.getAttribute('href') : undefined;
   if (source) {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(async (entry) => {

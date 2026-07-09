@@ -7,9 +7,9 @@ export default async function decorate(block) {
   block.append(loading);
 
   try {
-    const resp = await fetch('https://restcountries.com/v3.1/all?fields=name');
+    const resp = await fetch('https://jsonplaceholder.typicode.com/posts');
     const data = await resp.json();
-
+console.log(resp);
     const sorted = data.sort((a, b) => a.name.common.localeCompare(b.name.common));
 
     loading.remove();

@@ -1,0 +1,13 @@
+{
+  "total": 5,
+  "limit": 5,
+  "offset": 0,
+  "data": [
+    { "field": "name", "type": "text", "label": "Full Name", "placeholder": "Jane Doe", "required": "true" },
+    { "field": "email", "type": "email", "label": "Email Address", "placeholder": "jane@example.com", "required": "true" },
+    { "field": "phone", "type": "tel", "label": "Phone Number", "placeholder": "+1 555 000 0000", "required": "false" },
+    { "field": "message", "type": "textarea", "label": "Your Message", "placeholder": "How can we help?", "required": "true" },
+    { "field": "submit", "type": "submit", "label": "Send Message" }
+  ],
+  ":type": "sheet"
+}

@@ -4,8 +4,8 @@ Your project's description...
 #######Authors
 
 ## Environments
-- Preview: https://main--{repo}--{owner}.aem.page/
-- Live: https://main--{repo}--{owner}.aem.live/
+- Preview: https://dev-testing--{repo}--{owner}.aem.page/
+- Live: https://dev-testing--{repo}--{owner}.aem.live/
 
 ## Documentation
 

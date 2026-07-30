@@ -1,16 +1,16 @@
 {
   "type": "da",
   "sites": {
-    "eds-dalive-client": {
-      "libraryUrl": "https://github.com/mritunjayyadaveds/eds-dalive-client",
-      "contentHostUrl": "https://content.da.live/mritunjayyadaveds/eds-dalive-client/",
+    "dev-eds-dalive-client": {
+      "libraryUrl": "https://github.com/mritunjayyadaveds/dev-eds-dalive-client",
+      "contentHostUrl": "https://content.da.live/mritunjayyadaveds/dev-eds-dalive-client/",
       "aemSitePath": "/content/eds-demo",
       "aemAssetsFolderPath": "/content/dam/eds-demo",
       "aemSiteName": "eds-demo",
       "aemSiteTitle": "EDS Demo",
-      "baseUrl": "https://main--eds-dalive-client--mritunjayyadaveds.aem.live",
+      "baseUrl": "https://dev-testing--dev-eds-dalive-client--mritunjayyadaveds.aem.live",
       "previewOrg": "mritunjayyadaveds",
-      "previewSite": "eds-dalive-client"
+      "previewSite": "dev-eds-dalive-client"
     }
   }
 }
